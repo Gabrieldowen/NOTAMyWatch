@@ -27,6 +27,11 @@ class NotamRequest:
     def __init__(self, data):
         self.startAirport = data.get('startAirport', None)
         self.destAirport = data.get('destAirport', None)
+        self.destinations = []
+        index = 2
+        while data.get( f'destinationLocation{index}', None ) is not None:
+            self.destinations.append( data.get(f'destinationLocation{index}') )
+            index += 1
         self.responseFormat = data.get('responseFormat', None)
         self.effectiveStartDate =  data.get('effectiveStartDate', None)
         self.effectiveEndDate =  data.get('effectiveEndDate', None)

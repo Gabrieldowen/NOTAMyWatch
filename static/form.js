@@ -194,12 +194,15 @@ function submitForm() {
   document.getElementById('destAirport').remove();
   document.querySelector('label[for="startAirport"]').remove();
 
+  for (let i = 2; i <= 4; i++) {
+      document.getElementById('destinationLocation' + i);
+  }
   document.getElementById('submitButton').remove();
   document.getElementById('addButton').remove();
-
-  // Remove all the additional destinations
   document.getElementById('additionalDestinations').remove();
-
+    
+  // Remove all the additional destinations
+  
   var hiddenElements = document.querySelectorAll('.hiddenObj');
 
   // Display loading text for the user.
