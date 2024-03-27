@@ -73,12 +73,11 @@ if __name__ == '__main__':
         print(f"Text ({len(appendedText)} char) too large for Gemini API need to divide into smaller chunks")
     else:
         print("Calling Gemini API...")
-        callGemini(appendedText)
 
         # time gemini call
         start_time = time.time()
 
-        callGemini(appendedText)
+        translatedTextData = callGemini(appendedText)
 
         # end time and output
         end_time = time.time()
