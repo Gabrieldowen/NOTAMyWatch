@@ -54,13 +54,31 @@ def callGemini(untranslated):
     model = genai.GenerativeModel('gemini-pro')
 
     # set up prompt
-    prompt = "translate the NOTAM into plain language, removing abbreviations keeping their id in this format 'NOTAM_id>>translatedText;;':"
+    prompt = "translate the NOTAM into plain language, removing abbreviations and all newline characters, keeping their id in this format 'NOTAM_id>>translatedText;;':"
     response = model.generate_content(prompt +  untranslated)
     
     # print(response.text) 
 
     return response.text
 
+def processTranslatedText(translatedTextData, NOTAMs):
+
+    # plit the translated text by the so you have a list of [id, translatedText]
+    splitByNOTAM = translatedTextData.split(";;")
+    print(f"number of notams after splitting ;; {len(splitByNOTAM)}")
+
+    # for each of those items in the list find the notam that has the same ID and add the translated text to the notam
+    for Translation in splitByNOTAM:
+        TranslationPair = Translation.split(">>")
+
+        for notam in NOTAMs:
+            if notam.id == TranslationPair[0]:
+                notam.translatedText = TranslationPair[1]
+                break
+        
+    
+
+    return NOTAMs
 
 if __name__ == '__main__':
     NOTAMs = ParseTestNOTAM()
@@ -78,9 +96,21 @@ if __name__ == '__main__':
         start_time = time.time()
 
         translatedTextData = callGemini(appendedText)
+        print(f"\ntranslated text: {translatedTextData}")
 
         # end time and output
         end_time = time.time()
         execution_time = end_time - start_time
         print(f"Gemini processing time: {execution_time} seconds")
+
+        start_time = time.time()
+        TranslatedNOTAMs = processTranslatedText(translatedTextData, NOTAMs)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"parsing translated text time: {execution_time} seconds")
+
+        for notam in TranslatedNOTAMs:
+            print(f"*************************\n{notam.id} \n\nBefore traslation: {notam.text}\n\nAfter translation: {notam.translatedText}\n")
+
+
         
