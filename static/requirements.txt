@@ -13,3 +13,4 @@ pytz==2024.1
 requests==2.31.0
 urllib3==2.2.1
 Werkzeug==3.0.1
+google-ai-generativelanguage==0.4.0
