@@ -16,6 +16,7 @@ class Notam:
         self.effectiveStart = data.get('effectiveStart', None)
         self.effectiveEnd = data.get('effectiveEnd', None)
         self.text = data.get('text', None)
+        self.translatedText = None
         self.classification = data.get('classification', None)
         self.accountId = data.get('accountId', None)
         self.lastUpdated = data.get('lastUpdated', None)

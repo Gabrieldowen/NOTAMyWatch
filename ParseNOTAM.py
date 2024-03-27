@@ -36,3 +36,7 @@ def ParseNOTAM(apiOutput=None):
         print(f"Error occured: {e}")
 
     return NOTAMs
+
+if __name__ == '__main__':
+    NOTAMs = ParseNOTAM()
+    print(NOTAMs)
